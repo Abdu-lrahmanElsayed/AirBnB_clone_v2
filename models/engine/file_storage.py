@@ -16,7 +16,7 @@ class FileStorage:
             for k, v in self.__objects.items():
                 if isinstance(v, cls):
                     my_cls = {k: v}
-                    return my_cls
+            return my_cls
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
