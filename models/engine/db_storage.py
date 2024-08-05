@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """engine DBStorage"""
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session
+import models
+from models.base_model import BaseModel
 from models.base_model import Base
 from models.state import State
 from models.city import City
@@ -65,11 +67,7 @@ class DBStorage:
     def reload(self):
         """create all tables in the database
             create the current database session"""
-        self.__session = Base.metadata.create_all(self.__engine)
-        factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(factory)
+        Base.metadata.create_all(self.__engine)
+        sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sec)
         self.__session = Session()
-
-    def close(self):
-        """Remove session"""
-        self.__session.close()
