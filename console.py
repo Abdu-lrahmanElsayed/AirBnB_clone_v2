@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -133,12 +133,12 @@ class HBNBCommand(cmd.Cmd):
             elif '.' in value:
                 try:
                     value = float(value)
-                except ValueError:
+                except:
                     continue
             else:
                 try:
                     value = int(value)
-                except ValueError:
+                except:
                     continue
             setattr(new_instance, key, value)
         storage.save()
